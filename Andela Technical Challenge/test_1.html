@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" >
+  <!-- <script src="https://en.js.cx/test/libs.js" ></script> -->
+  <!-- <script src="test.js" ></script> -->
+</head>
+<body>
+
+  <input type="text" id="txt" >
+
+  <!-- <button type="button" onclick='document.getElementById("div_result").innerHTML = "Hello JavaScript" '>Click Me</button> -->
+  <!-- <button type="button" id="btnSearch" onclick='identifyAnagrams("nap PAN teacher cheater hectare ear era") '>Click Me</button> -->
+  <button type="button" id="btnSearch">Search</button>
+
+  <div id="div_result" style="border: 1px solid silver; height: 400px; width: 400px; padding: 20px;">
+    JavaScript can change HTML content.
+  </div>
+
+  <div id="count"></div>
+
+  <script>
+
+
+      document.getElementById("btnSearch").addEventListener("click", function(event){
+          let text = document.getElementById("txt").value;
+          identifyAnagrams(text); // call the function on the text to perform the search
+      });
+
+      object.onload = function(event) {
+          event.preventDefault();
+      }
+
+
+      /* The function cap capitalizes the first letter of a word
+          e.g: cap(anthem) == Anthem */
+      function cap(str) {
+        return str[0].toUpperCase() + str.slice(1).toLowerCase();
+      }//end function cap
+
+
+      function identifyAnagrams(str) {
+        let arr = str.split(' ');
+        let sortedArr = arr.map((word) => word.toLowerCase().split('').sort().join(''));
+        let result = ""; // holds the result to be returned
+        let count = 0;
+
+        /* then, take a word from the sorted array compare that word to the rest
+         of the words in the same array  if the words are the same when sorted
+        (e.g listen = eilnst and silent = eilnst), but the words are different
+        when unsorted as represented in arr, then make those words part
+         of the result to be returned.*/
+        for(let i = 0; i < sortedArr.length; i++ ) {
+
+          for(let j = i+1; j < sortedArr.length; j++) {
+
+            // if the words are the same when sorted (e.g listen = eilnst and silent = eilnst), but
+            // the words are different when unsorted as represented in arr, then make those words part
+            // of the result to be returned.
+            if(sortedArr[i] == sortedArr[j] && arr[i].toLowerCase() != arr[j].toLowerCase()){
+              result += cap(arr[i]) + " and " + cap(arr[j]) + " contain the same letters. <br /> ";
+              count++;
+            }//end if
+          }//end for j
+        }// end for i
+        // console.log(result);
+        if(result == ""){
+          document.getElementById("div_result").style.border = '1px solid red';
+          document.getElementById("count").style.color = 'red';
+          result = "Your sentence does not contain anagrams";
+        }else {
+          document.getElementById("div_result").style.border = '1px solid lightgreen';
+          document.getElementById("count").style.color = 'lightgreen';
+        }
+
+        document.getElementById("div_result").innerHTML = result;
+
+        if (count == 1){
+
+          document.getElementById("count").innerHTML = count + " result found.";
+        }else{
+
+          document.getElementById("count").innerHTML = count + " results found.";
+        }
+
+
+        console.log(count);
+        return result;
+      }// end function identifyAnagrams
+
+
+
+  </script>
+</body>
+</html>

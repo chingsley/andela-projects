@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" >
+  <!-- <script src="https://en.js.cx/test/libs.js" ></script> -->
+  <!-- <script src="test.js" ></script> -->
+</head>
+<body>
+  <div>
+
+  </div>
+  <input id="testInput" type="text">
+
+  <script>
+
+      /* The function cap capitalizes the first letter of a word
+          e.g: cap(anthem) == Anthem */
+      function cap(str) {
+        return str[0].toUpperCase() + str.slice(1).toLowerCase();
+      }//end function cap
+
+      // console.log(cap("i am groot"));
+
+      function identifyAnagrams(str) {
+        let arr = str.split(' ');
+        // console.log(arr);
+
+        let sortedArr = arr.map((word) => word.split('').sort().join(''));
+        // console.log(sortedArr);
+        // console.log(sortedArr[0].toLowerCase() == sortedArr[1].toLowerCase());
+
+
+        let result = ""; // holds the result to be returned
+
+        // next, take a word from the sorted array
+        for(let i = 0; i < sortedArr.length; i++ ) {
+
+          // next, compare that word to the rest of the words in the same array
+          for(let j = i+1; j < sortedArr.length; j++) {
+
+            // if the words are the same when sorted (e.g listen = eilnst and silent = eilnst), but
+            // the words are different when unsorted as represented in arr, then make those words part
+            // of the result to be returned.
+            if(sortedArr[i].toLowerCase() == sortedArr[j].toLowerCase() && arr[i].toLowerCase() != arr[j].toLowerCase()){
+              result += cap(arr[i]) + " and " + cap(arr[j]) + " contain the same letters. \n ";
+            }//end if
+          }//end for j
+        }// end for i
+        // console.log(result);
+        return result;
+      }// end function identifyAnagrams
+
+      // let str = "nap PAN teacher cheater hectare ear era";
+      // let str = "How can you listen if you are not silent ?";
+      let str = "How can you listen if you dont pay attention ?";
+      // console.log(identifyAnagrams(str));
+      let result = identifyAnagrams(str);
+      if(result == ""){
+        console.log("there are no anagrams");
+      }else {
+        console.log(result);
+      }
+
+      console.log("i'm groot".toUpperCase());
+      console.log("I'M GROOT".toLowerCase());
+
+      let myText = document.getElementById("testInput").value;
+      console.log(myText.toLowerCase());
+
+  </script>
+</body>
+</html>
