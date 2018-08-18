@@ -2,22 +2,117 @@
 <html>
 <head>
   <meta charset="utf-8" >
-  <!-- <script src="https://en.js.cx/test/libs.js" ></script> -->
-  <!-- <script src="test.js" ></script> -->
 </head>
 <body>
+  <header>
+    <h1 id="title">Andela Nigeria <span id="subtitle_1"> (Cycle 36.1)</span></h1>
+    <h6 id="subtitle">Technical Challenge (Question 4: Different Words, Same Letters ) </h6>
+  </header>
 
-  <input type="text" id="txt" >
-
-  <!-- <button type="button" onclick='document.getElementById("div_result").innerHTML = "Hello JavaScript" '>Click Me</button> -->
-  <!-- <button type="button" id="btnSearch" onclick='identifyAnagrams("nap PAN teacher cheater hectare ear era") '>Click Me</button> -->
-  <button type="button" id="btnSearch">Search</button>
-
-  <div id="div_result" style="border: 1px solid silver; height: 400px; width: 400px; padding: 20px;">
-    JavaScript can change HTML content.
+  <p id="instruction"> enter a test and search for anagrams: </p>
+  <div id="searchArea">
+        <input type="text" id="txt" >
+        <button type="button" id="btnSearch">Search</button>
   </div>
 
-  <div id="count"></div>
+  <div id="resultArea">
+      <div id="div_result">
+        <!-- click the search button to show result -->
+      </div>
+      <div id="countDisplay"></div>
+  </div>
+
+
+  <style>
+        *{
+          padding: 0px;
+          margin: 0px;
+        }
+      body {
+        /* background-color: #E9F7FE; */
+        background-color: #252439;
+        /* padding: 20px; */
+        /* margin: 20px; */
+      }
+      header{
+        /* background-color: #2C3E50; */
+        background: linear-gradient(to right, #16B1B5, 80%, black 100%);
+        margin: 5px;
+        padding: 15px;
+        color: white;
+        height: 120px;
+        font-size: 30px;
+        border-bottom: 2px solid black;
+      }
+
+      #title{
+        /* color: #222F3E; */
+        color: #282C34;
+      }
+
+      #subtitle_1 {
+        color: black;
+        font-size: 20px;
+      }
+
+      #subtitle {
+        margin-top: 20px;
+        /* float: right; */
+        color: black;
+        text-decoration: underline;
+        font-size: 20px;
+      }
+
+
+
+      #searchArea{
+        background-color: #16B1B5;
+        margin-left: 250px;
+        width: 60%;
+        height: 65px;
+      }
+
+      #txt {
+        height: 40px;
+        width: 400px;
+        /* border-radius: 5px; */
+        margin-left: 20%;
+        margin-top: 5px;
+        /* background-color: #4FC3C6; */
+        background-color: #EBEBEB;
+
+      }
+
+      #btnSearch {
+        height: 40px;
+        width: 75px;
+        background-color: #268893;
+        color: white;
+        font-style: bold;
+        /* border-radius: 5px; */
+      }
+
+      #instruction {
+        margin-top: 70px;
+        margin-bottom: 10px;
+        color: white;
+        margin-left: 250px;
+      }
+
+      #div_result {
+         /* height: 200px; */
+         width: 400px;
+        padding: 20px;
+      }
+      #resultArea {
+        margin-top: 30px;
+        margin-left: 33%;
+        color: white;
+        font-size: 18px;
+      }
+
+
+  </style>
 
   <script>
 
@@ -42,7 +137,7 @@
       function identifyAnagrams(str) {
         let arr = str.split(' ');
         let sortedArr = arr.map((word) => word.toLowerCase().split('').sort().join(''));
-        let result = ""; // holds the result to be returned
+        let result = "<ul>"; // holds the result to be returned
         let count = 0;
 
         /* then, take a word from the sorted array compare that word to the rest
@@ -58,33 +153,34 @@
             // the words are different when unsorted as represented in arr, then make those words part
             // of the result to be returned.
             if(sortedArr[i] == sortedArr[j] && arr[i].toLowerCase() != arr[j].toLowerCase()){
-              result += cap(arr[i]) + " and " + cap(arr[j]) + " contain the same letters. <br /> ";
+              result += "<li>" + cap(arr[i]) + " and " + cap(arr[j]) + " contain the same letters.</li> <br /> ";
               count++;
             }//end if
           }//end for j
         }// end for i
+        result += "</ul>";
         // console.log(result);
-        if(result == ""){
-          document.getElementById("div_result").style.border = '1px solid red';
-          document.getElementById("count").style.color = 'red';
+        if(count == 0){
+          document.getElementById("div_result").style.borderBottom = '1px solid red';
+          document.getElementById("countDisplay").style.color = 'red';
           result = "Your sentence does not contain anagrams";
         }else {
-          document.getElementById("div_result").style.border = '1px solid lightgreen';
-          document.getElementById("count").style.color = 'lightgreen';
+          document.getElementById("div_result").style.borderBottom = '1px solid #3FB57D';
+          document.getElementById("countDisplay").style.color = '#1ABC9C';
         }
 
         document.getElementById("div_result").innerHTML = result;
 
         if (count == 1){
 
-          document.getElementById("count").innerHTML = count + " result found.";
+          document.getElementById("countDisplay").innerHTML = count + " result found.";
         }else{
 
-          document.getElementById("count").innerHTML = count + " results found.";
+          document.getElementById("countDisplay").innerHTML = count + " results found.";
         }
 
 
-        console.log(count);
+        // console.log(count);
         return result;
       }// end function identifyAnagrams
 
